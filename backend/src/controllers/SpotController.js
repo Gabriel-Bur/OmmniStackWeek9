@@ -13,10 +13,9 @@ module.exports = {
     async store(req, res){
         const  filename  = req.file.filename;
         const { company, techs, price } = req.body;
-        const { userid } = req.headers;
+        const { user_id } = req.headers;
 
-
-        const user = await User.findById(userid);
+        const user = await User.findById(user_id);
         if(!user){
             return res
             .status(400)
@@ -24,7 +23,7 @@ module.exports = {
         }
 
         const newSpot = await Spot.create({
-            user: userid,
+            user: user_id,
             company,
             price,
             thumbnail: filename,
